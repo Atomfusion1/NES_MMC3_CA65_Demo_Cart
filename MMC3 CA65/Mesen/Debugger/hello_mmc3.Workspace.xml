@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DebugWorkspace xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Breakpoints />
+  <WatchValues />
+  <Labels>
+    <CodeLabel>
+      <Address>8192</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuControl_2000</Label>
+      <Comment>7  bit  0&#xD;
+---- ----&#xD;
+VPHB SINN&#xD;
+|||| ||||&#xD;
+|||| ||++- Base nametable address&#xD;
+|||| ||    (0 = $2000; 1 = $2400; 2 = $2800; 3 = $2C00)&#xD;
+|||| |+--- VRAM address increment per CPU read/write of PPUDATA&#xD;
+|||| |     (0: add 1, going across; 1: add 32, going down)&#xD;
+|||| +---- Sprite pattern table address for 8x8 sprites&#xD;
+||||       (0: $0000; 1: $1000; ignored in 8x16 mode)&#xD;
+|||+------ Background pattern table address (0: $0000; 1: $1000)&#xD;
+||+------- Sprite size (0: 8x8; 1: 8x16)&#xD;
+|+-------- PPU master/slave select&#xD;
+|          (0: read backdrop from EXT pins; 1: output color on EXT pins)&#xD;
++--------- Generate an NMI at the start of the&#xD;
+           vertical blanking interval (0: off; 1: on)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8193</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuMask_2001</Label>
+      <Comment>7  bit  0&#xD;
+---- ----&#xD;
+BGRs bMmG&#xD;
+|||| ||||&#xD;
+|||| |||+- Display type: (0: color, 1: grayscale)&#xD;
+|||| ||+-- 1: Show background in leftmost 8 pixels of screen, 0: Hide&#xD;
+|||| |+--- 1: Show sprites in leftmost 8 pixels of screen, 0: Hide&#xD;
+|||| +---- 1: Show background&#xD;
+|||+------ 1: Show sprites&#xD;
+||+------- Emphasize red&#xD;
+|+-------- Emphasize green&#xD;
++--------- Emphasize blue</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8194</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuStatus_2002</Label>
+      <Comment>7  bit  0&#xD;
+---- ----&#xD;
+VSO. ....&#xD;
+|||| ||||&#xD;
+|||+-++++- Least significant bits previously written into a PPU register&#xD;
+|||        (due to register not being updated for this address)&#xD;
+||+------- Sprite overflow. The intent was for this flag to be set&#xD;
+||         whenever more than eight sprites appear on a scanline, but a&#xD;
+||         hardware bug causes the actual behavior to be more complicated&#xD;
+||         and generate false positives as well as false negatives; see&#xD;
+||         PPU sprite evaluation. This flag is set during sprite&#xD;
+||         evaluation and cleared at dot 1 (the second dot) of the&#xD;
+||         pre-render line.&#xD;
+|+-------- Sprite 0 Hit.  Set when a nonzero pixel of sprite 0 overlaps&#xD;
+|          a nonzero background pixel; cleared at dot 1 of the pre-render&#xD;
+|          line.  Used for raster timing.&#xD;
++--------- Vertical blank has started (0: not in vblank; 1: in vblank).&#xD;
+           Set at dot 1 of line 241 (the line *after* the post-render&#xD;
+           line, false); cleared after reading $2002 and at dot 1 of the&#xD;
+           pre-render line.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8195</Address>
+      <AddressType>Register</AddressType>
+      <Label>OamAddr_2003</Label>
+      <Comment>Set OAM address - Write only</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8196</Address>
+      <AddressType>Register</AddressType>
+      <Label>OamData_2004</Label>
+      <Comment>Read/Write OAM data</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8197</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuScroll_2005</Label>
+      <Comment>Set PPU scroll, write twice - Write only</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8198</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuAddr_2006</Label>
+      <Comment>Set PPU address, write twice - Write only</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>8199</Address>
+      <AddressType>Register</AddressType>
+      <Label>PpuData_2007</Label>
+      <Comment>Read/Write VRAM</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16384</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq0Duty_4000</Label>
+      <Comment>DDLC VVVV&#xD;
+Duty (D), envelope loop / length counter halt (L), constant volume (C), volume/envelope (V)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16385</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq0Sweep_4001</Label>
+      <Comment>EPPP NSSS&#xD;
+Sweep unit: enabled (E), period (P), negate (N), shift (S)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16386</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq0Timer_4002</Label>
+      <Comment>TTTT TTTT&#xD;
+Timer low (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16387</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq0Length_4003</Label>
+      <Comment>LLLL LTTT&#xD;
+Length counter load (L), timer high (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16388</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq1Duty_4004</Label>
+      <Comment>DDLC VVVV&#xD;
+Duty (D), envelope loop / length counter halt (L), constant volume (C), volume/envelope (V)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16389</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq1Sweep_4005</Label>
+      <Comment>EPPP NSSS&#xD;
+Sweep unit: enabled (E), period (P), negate (N), shift (S)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16390</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq1Timer_4006</Label>
+      <Comment>TTTT TTTT&#xD;
+Timer low (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16391</Address>
+      <AddressType>Register</AddressType>
+      <Label>Sq1Length_4007</Label>
+      <Comment>LLLL LTTT&#xD;
+Length counter load (L), timer high (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16392</Address>
+      <AddressType>Register</AddressType>
+      <Label>TrgLinear_4008</Label>
+      <Comment>CRRR RRRR&#xD;
+Length counter halt / linear counter control (C), linear counter load (R)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16394</Address>
+      <AddressType>Register</AddressType>
+      <Label>TrgTimer_400A</Label>
+      <Comment>TTTT TTTT&#xD;
+Timer low (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16395</Address>
+      <AddressType>Register</AddressType>
+      <Label>TrgLength_400B</Label>
+      <Comment>LLLL LTTT&#xD;
+Length counter load (L), timer high (T)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16396</Address>
+      <AddressType>Register</AddressType>
+      <Label>NoiseVolume_400C</Label>
+      <Comment>--LC VVVV&#xD;
+Envelope loop / length counter halt (L), constant volume (C), volume/envelope (V)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16398</Address>
+      <AddressType>Register</AddressType>
+      <Label>NoisePeriod_400E</Label>
+      <Comment>L--- PPPP&#xD;
+Loop noise (L), noise period (P)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16399</Address>
+      <AddressType>Register</AddressType>
+      <Label>NoiseLength_400F</Label>
+      <Comment>LLLL L---&#xD;
+Length counter load (L)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16400</Address>
+      <AddressType>Register</AddressType>
+      <Label>DmcFreq_4010</Label>
+      <Comment>IL-- RRRR&#xD;
+IRQ enable (I), loop (L), frequency (R)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16401</Address>
+      <AddressType>Register</AddressType>
+      <Label>DmcCounter_4011</Label>
+      <Comment>-DDD DDDD&#xD;
+Load counter (D)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16402</Address>
+      <AddressType>Register</AddressType>
+      <Label>DmcAddress_4012</Label>
+      <Comment>AAAA AAAA&#xD;
+Sample address (A)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16403</Address>
+      <AddressType>Register</AddressType>
+      <Label>DmcLength_4013</Label>
+      <Comment>LLLL LLLL&#xD;
+Sample length (L)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16404</Address>
+      <AddressType>Register</AddressType>
+      <Label>SpriteDma_4014</Label>
+      <Comment>Writing $XX will upload 256 bytes of data from CPU page $XX00-$XXFF to the internal PPU OAM.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16405</Address>
+      <AddressType>Register</AddressType>
+      <Label>ApuStatus_4015</Label>
+      <Comment>Read:&#xD;
+IF-D NT21&#xD;
+DMC interrupt (I), frame interrupt (F), DMC active (D), length counter &gt; 0 (N/T/2/1)&#xD;
+&#xD;
+Write:&#xD;
+---D NT21&#xD;
+Enable DMC (D), noise (N), triangle (T), and pulse channels (2/1)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16406</Address>
+      <AddressType>Register</AddressType>
+      <Label>Ctrl1_4016</Label>
+      <Comment>Read (NES - input):&#xD;
+---4 3210&#xD;
+Read data from controller port #1.&#xD;
+&#xD;
+Write:&#xD;
+---- ---A&#xD;
+Output data (strobe) to both controllers.</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+    <CodeLabel>
+      <Address>16407</Address>
+      <AddressType>Register</AddressType>
+      <Label>Ctrl2_FrameCtr_4017</Label>
+      <Comment>Read (NES - input):&#xD;
+---4 3210&#xD;
+Read data from controller port #2.&#xD;
+&#xD;
+Write (Frame counter): MI-- ----&#xD;
+Mode (M, 0 = 4-step, 1 = 5-step), IRQ inhibit flag (I)</Comment>
+      <Flags>None</Flags>
+      <Length>1</Length>
+    </CodeLabel>
+  </Labels>
+</DebugWorkspace>
